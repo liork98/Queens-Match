@@ -1,0 +1,37 @@
+/* src/components/Card.css */
+.card-container {
+    width: 300px; /* Width of the card */
+    padding: 20px; /* Padding inside the card */
+    border-radius: 10px; /* Rounded corners */
+    background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center the text */
+    margin: 20px; /* Margin around the card */
+}
+
+.profile-picture {
+    width: 100px; /* Width of the profile picture */
+    height: 100px; /* Height of the profile picture */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Cover the area while maintaining aspect ratio */
+    border: 2px solid deeppink; /* Border color for the picture */
+    margin-bottom: 15px; /* Space below the profile picture */
+}
+
+.card-name {
+    font-size: 24px; /* Font size for name */
+    color: deeppink; /* Name color */
+    margin: 10px 0; /* Margin above and below the name */
+}
+
+.card-email {
+    font-size: 16px; /* Font size for email */
+    color: rgba(0, 0, 0, 0.7); /* Darker color for email */
+    margin: 5px 0; /* Margin above and below the email */
+}
+
+.card-details {
+    font-size: 14px; /* Font size for details */
+    color: rgba(0, 0, 0, 0.5); /* Light black color for details */
+    margin: 5px 0; /* Margin above and below the details */
+}

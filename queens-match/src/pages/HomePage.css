@@ -1,0 +1,104 @@
+/* src/pages/UserProfilePage.css */
+
+.user-profile-page {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;    /* Center align items */
+    padding: 20px;         /* Add padding around the page */
+    background-color: #f8f8f8; /* Light background for the page */
+    min-height: 100vh;     /* Full viewport height */
+}
+
+h1 {
+    color: deeppink; /* Header color */
+    font-size: 2.5em; /* Font size for header */
+    margin-bottom: 20px; /* Margin below header */
+}
+
+.card-list {
+    display: grid; /* Use grid layout for cards */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 70px; /* Space between cards */
+    width: 100%; /* Full width */
+    max-width: 1200px; /* Maximum width for the card list */
+}
+
+.card-container {
+    padding: 15px; /* Padding inside each card */
+    border-radius: 10px; /* Rounded corners for cards */
+    background-color: rgba(255, 192, 203, 0.3); /* Light pink background for cards */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+    text-align: center; /* Center text inside cards */
+    transition: transform 0.2s; /* Smooth transition for hover effect */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.card-container:hover {
+    transform: scale(1.05); /* Scale card slightly on hover */
+}
+
+.profile-picture {
+    width: 80px; /* Width of profile picture */
+    height: 80px; /* Height of profile picture */
+    border-radius: 50%; /* Circular profile picture */
+    object-fit: cover; /* Crop image to fit */
+}
+
+.card-name {
+    font-weight: bold; /* Bold font for name */
+    margin-top: 10px; /* Margin above name */
+}
+
+.card-email {
+    color: #555; /* Dark gray color for email */
+}
+
+.card-details {
+    color: #777; /* Lighter gray color for details */
+    margin-top: 5px; /* Margin above details */
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed; /* Fixed position for overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.modal-content {
+    background: white; /* White background for modal */
+    padding: 20px; /* Padding inside modal */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for modal */
+    width: 90%; /* Width of modal */
+    max-width: 500px; /* Maximum width */
+    text-align: center; /* Center text in modal */
+}
+
+.profile-picture-large {
+    width: 150px; /* Width of larger profile picture */
+    height: 150px; /* Height of larger profile picture */
+    border-radius: 50%; /* Circular shape */
+    object-fit: cover; /* Crop image to fit */
+    margin: 10px 0; /* Margin above and below */
+}
+
+button {
+    background-color: deeppink; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding inside button */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+button:hover {
+    background-color: rgba(207, 44, 73, 0.8); /* Darker shade on hover */
+}

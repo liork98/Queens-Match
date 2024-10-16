@@ -1,0 +1,30 @@
+/* Header.css */
+
+header {
+    padding: 20px; /* Add padding around the header */
+}
+
+.header-container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between logo and nav */
+}
+
+.header-logo {
+    width: 220px; /* Set the width of the logo */
+    height: 50px; /* Maintain aspect ratio */
+    padding: 50px;
+    color: deeppink;
+    filter: invert(36%) sepia(100%) saturate(2900%) hue-rotate(-48deg);
+}
+
+.nav-list {
+    list-style: none; /* Remove bullets from list */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox to align items */
+}
+
+.nav-list button {
+    margin: 0 20px;
+}

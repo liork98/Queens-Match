@@ -1,0 +1,75 @@
+/* src/pages/LoginPage.css */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    height: 50vh;           /* Full viewport height */
+}
+
+.login-container {
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center the text in the form */
+}
+
+h1 {
+    text-align: center; /* Center the title */
+    color: deeppink; /* Set header color */
+    font-size: 350%;
+    font-weight: lighter;
+}
+
+.form-group {
+    margin-bottom: 25px; /* Margin between form groups */
+}
+
+
+input {
+    cursor: pointer;
+    width: 80%; /* Full width of the input */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #ccc; /* Border for input */
+    border-radius: 20px; /* Rounded corners */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+    text-align: center; /* Center the text inside the input */
+}
+
+/* Placeholder styling */
+input::placeholder {
+    color: rgba(0, 0, 0, 0.5); /* Light black color for the placeholder */
+    font-size: 110%;
+    font-weight: lighter;
+}
+
+/* Input focus state */
+input:focus {
+    border-color: deeppink; /* Border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.error {
+    color: red; /* Error message color */
+    text-align: center; /* Center the error message */
+    margin-bottom: 15px; /* Margin below the error message */
+}
+
+a {
+    color: #000; /* Link color */
+    text-decoration: underline; /* Remove underline from links */
+}
+
+button.submit-button {
+    background-color: deeppink;
+}
+
+button.submit-button:hover {
+background-color: rgba(207, 44, 73, 0.3)
+}
+
+p {
+    font-weight: lighter;
+}

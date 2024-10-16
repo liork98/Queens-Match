@@ -1,0 +1,26 @@
+/* src/components/Button.css */
+
+.custom-button {
+    padding: 10px 20px; /* Padding inside the button */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+    text-decoration: none; /* Remove underline from links */
+    font-size: 1rem; /* Font size */
+    background-color: rgba(207, 44, 73, 0.3);
+    margin-left: 5px;
+}
+
+/* Button hover state */
+.custom-button:hover {
+    background-color: deeppink; /* Button background color */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+.nav-list li a:hover {
+    background-color: deeppink; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+}

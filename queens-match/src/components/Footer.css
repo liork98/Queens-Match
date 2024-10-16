@@ -1,0 +1,29 @@
+.footer {
+    padding: 20px; /* Add padding around the footer */
+    background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
+    text-align: center; /* Center-align text in footer */
+    bottom: 0; /* Stick it to the bottom */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    position: sticky;
+}
+
+.footer-container {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between text and nav */
+}
+
+.footer-container p {
+    margin: 0; /* Remove default margin */
+    color: #000; /* Text color */
+}
+
+nav {
+    /* Optional: Center align the nav items */
+    display: flex;
+    justify-content: center; /* Centering the items horizontally */
+}
+
+
+
