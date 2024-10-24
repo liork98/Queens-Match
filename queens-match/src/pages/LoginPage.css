@@ -4,12 +4,14 @@
     flex-direction: column;
     justify-content: center; /* Center vertically */
     align-items: center;     /* Center horizontally */
-    height: 50vh;           /* Full viewport height */
+    /*height: 50vh;           !* Full viewport height *!*/
+    padding-bottom: 50px;
 }
 
 .login-container {
     width: 300px;
-    padding: 20px;
+    height:200px;
+    padding: 80px;
     border-radius: 10px;
     background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -17,6 +19,7 @@
 }
 
 h1 {
+    cursor: pointer;
     text-align: center; /* Center the title */
     color: deeppink; /* Set header color */
     font-size: 350%;
@@ -64,6 +67,7 @@ a {
 
 button.submit-button {
     background-color: deeppink;
+    margin-bottom: 15px;
 }
 
 button.submit-button:hover {
@@ -72,4 +76,5 @@ background-color: rgba(207, 44, 73, 0.3)
 
 p {
     font-weight: lighter;
+
 }

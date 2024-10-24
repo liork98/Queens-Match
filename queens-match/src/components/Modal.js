@@ -4,10 +4,8 @@ import './Modal.css'; // Assuming you have CSS for modal styling
 const Modal = ({ isOpen, onClose, user }) => {
     if (!isOpen || !user) return null; // Don't render anything if not open or user is null
 
-    // Provide a default profile picture if profilePicture is null or undefined
-    const profileImage = user.profilePicture
-        ? `/assets/Avatars/${user.profilePicture}` // Adjust the path as needed
-        : '/assets/Avatars/avatar3.jpg'; // Default avatar image
+    // Use template literals correctly with backticks
+    const profileImage = `/assets/Avatars/${user.profile_picture}`;
 
     return (
         <div className="modal-overlay" onClick={onClose}>

@@ -1,22 +1,24 @@
-/* src/pages/LoginPage.css */
+/* src/pages/RegisterPage.css */
 .register-page {
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center vertically */
     align-items: center;     /* Center horizontally */
-    height: 50vh;
     margin-bottom: 100px;
-    height: 700px;
-    /* Full viewport height */
+    height: 700px;          /* Full viewport height */
+    padding-top: 150px;
+    padding-bottom: 200px;
 }
 
 .register-container {
+
     width: 300px;
     padding: 20px;
     border-radius: 10px;
     background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     text-align: center; /* Center the text in the form */
+
 }
 
 h1 {
@@ -30,8 +32,8 @@ h1 {
     margin-bottom: 25px; /* Margin between form groups */
 }
 
-
-input {
+/* Input styling */
+input, select {
     cursor: pointer;
     width: 80%; /* Full width of the input */
     padding: 10px; /* Padding inside the input */
@@ -49,30 +51,81 @@ input::placeholder {
 }
 
 /* Input focus state */
-input:focus {
+input:focus, select:focus {
     border-color: deeppink; /* Border color on focus */
     outline: none; /* Remove default outline */
 }
 
+/* Select styling for avatar selection */
+select {
+    background-color: white; /* White background for select */
+}
+
+/* Error message styling */
 .error {
     color: red; /* Error message color */
     text-align: center; /* Center the error message */
     margin-bottom: 15px; /* Margin below the error message */
 }
 
+/* Link styling */
 a {
     color: #000; /* Link color */
     text-decoration: underline; /* Remove underline from links */
 }
 
+/* Button styling */
 button.submit-button {
     background-color: deeppink;
+    color: white; /* White text color for button */
+    border: none; /* Remove border */
+    padding: 10px; /* Padding for button */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    position: relative;
+    right: 10px;
 }
 
 button.submit-button:hover {
-    background-color: rgba(207, 44, 73, 0.3)
+    background-color: rgba(207, 44, 73, 0.8); /* Darker shade on hover */
 }
 
+/* Radio button styling */
+.form-group label {
+    margin-right: 0px; /* Space between radio buttons */
+}
+
+input[type="radio"] {
+    margin-right: 5px; /* Space between radio button and label */
+
+}
+
+/* Paragraph styling */
 p {
     font-weight: lighter;
+}
+
+/* Avatar selection label styling */
+label[for="avatar"] {
+    font-weight: bold; /* Bold font for the avatar label */
+    margin-bottom: 5px; /* Space below the label */
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center; /* Center the radio buttons */
+    align-items: center; /* Vertically center the radio buttons */
+    margin-bottom: 25px; /* Margin below the radio group */
+}
+
+.radio-group label {
+    margin-right: 20px; /* Space between radio buttons */
+    cursor: pointer; /* Pointer cursor for labels */
+}
+
+/* Style for radio inputs to improve appearance */
+input[type="radio"] {
+    margin-right: 5px; /* Space between radio button and label */
+    cursor: pointer; /* Pointer cursor on hover */
 }

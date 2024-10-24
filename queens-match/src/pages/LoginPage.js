@@ -10,12 +10,12 @@ const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    //const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useState('');
     const navigate = useNavigate(); // Initialize navigate
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(''); // Clear any previous error message
-        //setSuccess(''); // Clear any previous success message
+        setSuccess(''); // Clear any previous success message
 
         if (username && password) {
             try {
@@ -27,8 +27,8 @@ const LoginPage = () => {
                 });
 
                 // Handle successful login
-                //const { token } = response.data; // Assuming your API returns a token
-                //setSuccess(`Logged in as ${username}. Token: ${token}`);
+                const { token } = response.data; // Assuming your API returns a token
+                setSuccess(`Logged in as ${username}. Token: ${token}`);
                 //alert(`Logged in successfully!`);
                 setTimeout(() => {}, 1000);
                 navigate('/home');
@@ -58,7 +58,7 @@ const LoginPage = () => {
 
     return (
         <div className="login-page">
-            <h1>Queen's Match</h1>
+            <h1>Queens Match</h1>
             <div className="login-container">
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>

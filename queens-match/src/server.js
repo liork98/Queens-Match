@@ -37,8 +37,9 @@ app.get('/api/users', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const { name, profile_picture, email, password, details, additional_info } = req.body;
-    console.log('Signup attempt:', { name, profile_picture, email, password, details, additional_info });
+    console.log("Register")
+    const { user_type, first_name, last_name, profile_picture, email, password, company, job_title, username, linkedin, details, additional_info } = req.body;
+    console.log('Signup attempt22:', { user_type, first_name, last_name, profile_picture, email, password, company, job_title, username, linkedin, details, additional_info });
 
     try {
         // Check if user already exists (by email)
@@ -56,12 +57,25 @@ app.post('/register', async (req, res) => {
 
         // Insert new user into the database
         const insertUserQuery = `
-            INSERT INTO users (name, profile_picture, email, password, details, additional_info)
-            VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING id, name
+            INSERT INTO users (user_type, first_name, last_name, profile_picture, email, password, company, job_title, username, linkedin, details, additional_info)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            RETURNING id, username
         `;
 
-        const insertUserValues = [name, profile_picture, email, hashedPassword, details, additional_info];
+        const insertUserValues = [
+            user_type,        // $1
+            first_name,       // $2
+            last_name,        // $3
+            profile_picture,   // $4
+            email,            // $5
+            hashedPassword,    // $6
+            company,          // $7
+            job_title,        // $8
+            username,         // $9
+            linkedin,         // $10
+            details,          // $11
+            additional_info    // $12
+        ];
 
         const insertUserResult = await pool.query(insertUserQuery, insertUserValues);
 
@@ -69,7 +83,7 @@ app.post('/register', async (req, res) => {
 
         // Optionally, create a JWT token for the new user
         const token = jwt.sign(
-            { id: newUser.id, name: newUser.name },
+            { id: newUser.id, username: newUser.username },
             process.env.JWT_SECRET || 'your_jwt_secret',
             { expiresIn: '1h' }
         );
