@@ -20,11 +20,12 @@ Queens Match is a community-driven mentorship application designed to connect me
 
 
 ## Tech Stack
-- Frontend: [React](https://reactjs.org/)
-- Backend: [Node.js](https://nodejs.org/)
-- Database: [MongoDB](https://www.mongodb.com/)
-- Authentication: [JWT](https://jwt.io/)
-- Containerization: [Docker](https://www.docker.com/) - Used for containerizing the application and database
+## Tech Stack
+- Frontend: [React](https://reactjs.org/) ![React Icon](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)
+- Backend: [Node.js](https://nodejs.org/) ![Node.js Icon](https://upload.wikimedia.org/wikipedia/commons/6/64/Node.js_logo_2015.svg)
+- Database: [MongoDB](https://www.mongodb.com/) ![MongoDB Icon](https://upload.wikimedia.org/wikipedia/commons/9/93/MongoDB_Logo.svg)
+- Authentication: [JWT](https://jwt.io/) ![JWT Icon](https://upload.wikimedia.org/wikipedia/commons/e/e1/JSON_Web_Token_logo.svg)
+- Containerization: [Docker](https://www.docker.com/) ![Docker Icon](https://upload.wikimedia.org/wikipedia/commons/3/39/Docker_logo.png)
 
 
 ## Installation
