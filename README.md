@@ -20,12 +20,12 @@ Queens Match is a community-driven mentorship application designed to connect me
 
 
 ## Tech Stack
-## Tech Stack
-- Frontend: [React](https://reactjs.org/) ![React Icon](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)
-- Backend: [Node.js](https://nodejs.org/) ![Node.js Icon](https://upload.wikimedia.org/wikipedia/commons/6/64/Node.js_logo_2015.svg)
-- Database: [MongoDB](https://www.mongodb.com/) ![MongoDB Icon](https://upload.wikimedia.org/wikipedia/commons/9/93/MongoDB_Logo.svg)
-- Authentication: [JWT](https://jwt.io/) ![JWT Icon](https://upload.wikimedia.org/wikipedia/commons/e/e1/JSON_Web_Token_logo.svg)
-- Containerization: [Docker](https://www.docker.com/) ![Docker Icon](https://upload.wikimedia.org/wikipedia/commons/3/39/Docker_logo.png)
+- Frontend: [React](https://reactjs.org/) <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Icon" width="40" />
+- Backend: [Node.js](https://nodejs.org/) <img src="https://nodejs.org/static/logos/nodejsStackedLight.svg" alt="Node.js Icon" width="40" />
+- Database: [MongoDB](https://www.mongodb.com/) <img src="https://www.svgrepo.com/show/331488/mongodb.svg" alt="MongoDB Icon" width="40" />
+- Authentication: [JWT](https://jwt.io/) <img src="https://cdn.worldvectorlogo.com/logos/jwt-3.svg" alt="JWT Icon" width="40" />
+- Containerization: [Docker](https://www.docker.com/) <img src="https://www.svgrepo.com/show/349342/docker.svg" alt="Docker Icon" width="40" />
+
 
 
 ## Installation
