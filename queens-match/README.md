@@ -22,9 +22,9 @@ Queens Match is a community-driven mentorship application designed to connect me
 ## Tech Stack
 - Frontend: [React](https://reactjs.org/) <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Icon" width="30" />
 - Backend: [Node.js](https://nodejs.org/) <img src="https://nodejs.org/static/logos/nodejsStackedLight.svg" alt="Node.js Icon" width="40" />
-- Database: [MongoDB](https://www.mongodb.com/) <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/MongoDB_Logo.svg" alt="MongoDB Icon" width="60" />
-- Authentication: [JWT](https://jwt.io/) <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/JSON_Web_Token_logo.svg" alt="JWT Icon" width="60" />
-- Containerization: [Docker](https://www.docker.com/) <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Docker_logo.png" alt="Docker Icon" width="80" />
+- Database: [MongoDB](https://www.mongodb.com/) <img src="https://www.svgrepo.com/show/331488/mongodb.svg" alt="MongoDB Icon" width="60" />
+- Authentication: [JWT](https://jwt.io/) <img src="https://cdn.worldvectorlogo.com/logos/jwt-3.svg" alt="JWT Icon" width="60" />
+- Containerization: [Docker](https://www.docker.com/) <img src="https://www.svgrepo.com/show/349342/docker.svg" alt="Docker Icon" width="80" />
 
 
 
