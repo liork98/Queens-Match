@@ -9,9 +9,10 @@ const Footer = () => {
         <footer className="footer">
             <p>&copy; {new Date().getFullYear()} All rights reserved.</p>
             <nav>
-            <ul className="nav-list"> {/* Added a class for styling the navigation */}
-                <Button href="/contact">Contact</Button>
-            </ul>
+                <ul className="nav-list"> {/* Added a class for styling the navigation */}
+                    <Button to="/contact">Contact</Button>
+                    <Button to="/about">About</Button>
+                </ul>
             </nav>
         </footer>
     );

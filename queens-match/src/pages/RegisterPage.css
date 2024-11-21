@@ -63,9 +63,12 @@ select {
 
 /* Error message styling */
 .error {
-    color: red; /* Error message color */
+    color: #1159ed; /* Error message color */
     text-align: center; /* Center the error message */
     margin-bottom: 15px; /* Margin below the error message */
+    margin-top: -40px; /* Margin above the error message */
+    background-color: #ffeefb;
+    border-radius: 30px;
 }
 
 /* Link styling */

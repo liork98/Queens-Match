@@ -11,6 +11,7 @@ import Header from './components/Header'; // Header component
 import Footer from './components/Footer'; // Footer component
 import NotFoundPage from './pages/NotFoundPage'; // 404 Not Found page
 import ContactPage from "./pages/ContactPage"; // Contact page
+import ProfilePage from "./pages/ProfilePage"; // Profile page
 
 const App = () => {
     return (
@@ -25,6 +26,7 @@ const App = () => {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<RegisterPage />} />
                         <Route path="/home" element={<HomePage />} />
+                        <Route path="/ProfilePage" element={<ProfilePage />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </div>

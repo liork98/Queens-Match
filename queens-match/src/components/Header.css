@@ -5,6 +5,7 @@ header {
 }
 
 .header-container {
+
     display: flex;
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Space between logo and nav */

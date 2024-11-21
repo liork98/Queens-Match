@@ -5,14 +5,15 @@ const Modal = ({ isOpen, onClose, user }) => {
     if (!isOpen || !user) return null; // Don't render anything if not open or user is null
 
     // Use template literals correctly with backticks
-    const profileImage = `/assets/Avatars/${user.profile_picture}`;
+    const profileImage = `${user.profile_picture}`;
 
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <h2>{user.name}</h2>
-                <img src={profileImage} alt={`${user.name}'s profile`} className="profile-picture-large" />
+                <img src={profileImage} alt={`${user.name}'s profile`} className="profile-picture-large"/>
                 <p>Email: {user.email}</p>
+                <p>Phone Number: {user.phone_number}</p>
                 <p>Details: {user.details}</p>
                 <p>Additional Info: {user.additional_info}</p>
                 <button onClick={onClose}>Close</button>

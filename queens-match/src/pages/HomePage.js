@@ -53,6 +53,7 @@ const HomePage = () => {
                             profilePicture={user.profile_picture} // Map profile_picture field
                             name={user.name}                      // Map name field
                             email={user.email}                    // Map email field
+                            phoneNumber={user.phone_number} // Map phone
                             details={user.details}                // Map details field
                             onClick={() => handleCardClick(user)} // Handle click event
                         />

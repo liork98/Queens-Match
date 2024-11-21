@@ -13,9 +13,10 @@ const Header = () => {
 
                 <nav>
                     <ul className="nav-list">
-                        <Button to="/">Home</Button>
+                        <Button to="/home">Home</Button>
                         <Button to="/about">About</Button>
                         <Button to="/contact">Contact</Button>
+                        <Button to="/profilepage">Profile</Button>
                     </ul>
                 </nav>
             </div>

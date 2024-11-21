@@ -55,9 +55,9 @@ input:focus {
 }
 
 .error {
-    color: red; /* Error message color */
+    color: #33d800; /* Error message color */
     text-align: center; /* Center the error message */
-    margin-bottom: 15px; /* Margin below the error message */
+    /*margin-bottom: 15px; !* Margin below the error message *!*/
 }
 
 a {

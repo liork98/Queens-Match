@@ -10,9 +10,11 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [first_name, setFirstName] = useState(''); // Correctly declared state for first name
     const [last_name, setLastName] = useState(''); // Added last name state
+    const [phone_number, setPhoneNumber] = useState(''); // Added phone number state
+    const [linkedin, setLinkedin] = useState(''); // Added linkedin state
     const [details, setDetails] = useState('');
     const [additional_info, setAdditionalInfo] = useState(''); // Updated to camel case
-    const [avatar, setAvatar] = useState('avatar1'); // State for avatar selection
+    const [avatar, setAvatar] = useState('avatar1.jpg'); // State for avatar selection
     const [userType, setUserType] = useState('mentee'); // State for user type (mentor or mentee)
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -22,7 +24,7 @@ const RegisterPage = () => {
         setError(''); // Clear any previous error message
         setSuccess(''); // Clear any previous success message
 
-        if (username && email && password && first_name && last_name) { // Check all required fields
+        if (username && email && password && phone_number && first_name && last_name) { // Check all required fields
             try {
                 // Send a POST request to the backend API for registration
                 const response = await axios.post('http://localhost:5001/register', {
@@ -32,6 +34,8 @@ const RegisterPage = () => {
                     password,
                     first_name,
                     last_name,
+                    phone_number,
+                    linkedin,
                     details,
                     additional_info, // Corrected variable name to match state
                     profile_picture: avatar // Include selected avatar
@@ -45,9 +49,11 @@ const RegisterPage = () => {
                 setPassword('');
                 setFirstName('');
                 setLastName('');
+                setPhoneNumber('');
+                setLinkedin(''); // Updated variable name to match state
                 setDetails('');
                 setAdditionalInfo('');
-                setAvatar('avatar1'); // Reset avatar to default
+                setAvatar('avatar1.jpg'); // Reset avatar to default
                 setUserType('mentee'); // Reset user type to default
             } catch (error) {
                 if (error.response) {
@@ -131,6 +137,26 @@ const RegisterPage = () => {
                     </div>
                     <div className="form-group">
                         <FieldToFill
+                            label="Phone Number:"
+                            type="text"
+                            value={phone_number}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            placeholder=""
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <FieldToFill
+                            label="Linkedin Profile:"
+                            type="text"
+                            value={linkedin}
+                            onChange={(e) => setLinkedin(e.target.value)}
+                            placeholder=""
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <FieldToFill
                             label="Details:"
                             type="text"
                             value={details}
@@ -157,7 +183,7 @@ const RegisterPage = () => {
                             value={avatar}
                             onChange={(e) => setAvatar(e.target.value)}
                         >
-                            <option value="avatar1,jpg">Avatar 1</option>
+                            <option value="avatar1.jpg">Avatar 1</option>
                             <option value="avatar2.jpg">Avatar 2</option>
                             <option value="avatar3.jpg">Avatar 3</option>
                             <option value="avatar4.jpg">Avatar 4</option>

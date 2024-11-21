@@ -20,7 +20,6 @@ const LoginPage = () => {
         if (username && password) {
             try {
                 // Send a POST request to the backend API for login
-
                 const response = await axios.post('/login', {
                     username,
                     password,
@@ -29,7 +28,8 @@ const LoginPage = () => {
                 // Handle successful login
                 const { token } = response.data; // Assuming your API returns a token
                 setSuccess(`Logged in as ${username}. Token: ${token}`);
-                //alert(`Logged in successfully!`);
+                localStorage.setItem('token', response.data.token);
+                alert(`Logged in successfully!`);
                 setTimeout(() => {}, 1000);
                 navigate('/home');
                 // Perform any other action after successful login, e.g., redirect or save token

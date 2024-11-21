@@ -90,11 +90,6 @@ const AboutPage = () => {
                     A database table for users will be maintained, containing the necessary information for login purposes,
                     alongside another table specifically for mentor details.
                 </p>
-                <h2>Design</h2>
-                <p>
-                    While the design is presented as a mobile application, it should be styled and adapted for a web environment.
-                    <a href="https://www.figma.com/design/1CNJcNmse2eYCeQDLwXcqy/QueenB?node-id=0-1&node-type=canvas&t=CD7s6s86k7mFnOGD-0" target="_blank" rel="noopener noreferrer"> View Design Mockup</a>
-                </p>
             </div>
         </div>
     );
