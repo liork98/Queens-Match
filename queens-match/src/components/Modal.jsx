@@ -10,8 +10,12 @@ const Modal = ({ isOpen, onClose, user }) => {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <h2>{user.name}</h2>
-                <img src={profileImage} alt={`${user.name}'s profile`} className="profile-picture-large"/>
+                <h2>{`${user.first_name}'s profile`}</h2>
+                <img
+                    src={profileImage}
+                    alt={`${user.first_name}'s profile`}
+                    className="profile-picture-large"
+                />
                 <p>Email: {user.email}</p>
                 <p>Phone Number: {user.phone_number}</p>
                 <p>Details: {user.details}</p>

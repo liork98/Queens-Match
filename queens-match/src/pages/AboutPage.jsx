@@ -16,14 +16,13 @@ const AboutPage = () => {
                     The aim is to establish a robust infrastructure and develop key features that are tailored to meet these needs.
                     As the project evolves, contributions will be welcomed similar to any open-source project,
                     necessitating that we develop it in a maintainable and easily expandable manner.
-                    Proper documentation is also required, which is an essential skill in the professional world.
                 </p>
                 <h2>Skills and Competencies</h2>
                 <p>
                     This project operates in a team development format, providing team members with not only technical skills
                     but also teamwork and project synchronization experience within a complex project.
                 </p>
-                <h2>User Requirements</h2>
+                <h2>User Features</h2>
                 <ol>
                     <li>
                         The application will display a list of mentors along with relevant details for the mentoring services they offer on a dedicated page, including:
@@ -54,26 +53,19 @@ const AboutPage = () => {
                         A login page that requires a username and password (or just a username, depending on implementation).
                     </li>
                 </ol>
-                <h2>Additional Requirements</h2>
-                <p>
-                    These are optional and will only be implemented if time allows:
-                </p>
+                <h2>Future Features</h2>
                 <ol>
-                    <li>
-                        The application will include user accounts with authentication.
-                        Each user will need to provide the following details during registration:
-                        <ul>
-                            <li>Email</li>
-                            <li>Strong password</li>
-                            <li>Username</li>
-                            <li>Optional fields: Programming languages, technology stack, job title, employer, years of experience, profile picture, GitHub link, LinkedIn link.</li>
-                        </ul>
-                    </li>
+                    <li>Search & Filters: Allows users to search for mentors by name, technology stack, and filter by programming languages or other criteria.</li>
+                        <li>Scheduling System: Integration with a scheduling system to set up mentorship sessions.</li>
+                    <li>Feedback System: A feedback mechanism where mentees can rate their sessions and mentors.</li>
+                        <li>Automated Thank You Messages: Automatic thank you messages sent to mentors after a session.</li>
+                            <li>Admin Interface: Provides community administrators with a dashboard to manage users and view mentor-mentee activities.)</li>
+                                <li>Admin Dashboard: Includes detailed reports on mentorship sessions and user activities.</li>
                     <li>
                         There will be two types of client sides: one for regular users and one for administrators (community managers).
                     </li>
                 </ol>
-                <h2>Advanced Requirements</h2>
+                <h2>Special Future Feature</h2>
                 <ol>
                     <li>Integration with a scheduling system.</li>
                     <li>A feedback system regarding meetings, with reminders sent to users who haven’t submitted feedback within two days.</li>

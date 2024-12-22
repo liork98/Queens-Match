@@ -1,23 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Ensure useEffect is imported
 import './RegisterPage.css'; // Ensure you create this CSS file to style the register page
 import Button from "../components/Button"; // Import Button component
 import FieldToFill from "../components/FieldToFill"; // Import FieldToFill component
 import axios from "axios";
+import CreatableSelect from 'react-select/creatable';
+//import Select from "react-select";
+import makeAnimated from 'react-select/animated';
+const animatedComponents = makeAnimated();
+
+
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [first_name, setFirstName] = useState(''); // Correctly declared state for first name
-    const [last_name, setLastName] = useState(''); // Added last name state
-    const [phone_number, setPhoneNumber] = useState(''); // Added phone number state
-    const [linkedin, setLinkedin] = useState(''); // Added linkedin state
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [phone_number, setPhoneNumber] = useState('');
+    const [linkedin, setLinkedin] = useState('');
     const [details, setDetails] = useState('');
-    const [additional_info, setAdditionalInfo] = useState(''); // Updated to camel case
-    const [avatar, setAvatar] = useState('avatar1.jpg'); // State for avatar selection
-    const [userType, setUserType] = useState('mentee'); // State for user type (mentor or mentee)
+    const [additional_info, setAdditionalInfo] = useState('');
+    const [avatar, setAvatar] = useState('avatar1.jpg');
+    const [userType, setUserType] = useState('mentee');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+
+    const [languages, setLanguages] = useState([]); // State for selected programming languages
+    const [languagesOptions, setLanguagesOptions] = useState([]); // State for selected programming languages
+
+    useEffect(() => {
+        const fetchLanguages = async () => {
+            try {
+                const response = await axios.get('http://localhost:5001/api/languages');
+
+                const options = response.data.map(lang => ({
+                    key: lang.key,
+                    label: lang.name,
+                    value: lang.name,
+                }));
+                setLanguagesOptions(options)
+                console.log('Fetched languages:', languagesOptions);
+
+            } catch (error) {
+                console.error('Error fetching programming languages:', error);
+            }
+        };
+
+        fetchLanguages();
+    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,7 +69,9 @@ const RegisterPage = () => {
                     linkedin,
                     details,
                     additional_info, // Corrected variable name to match state
-                    profile_picture: avatar // Include selected avatar
+                    profile_picture: avatar, // Include selected avatar
+                    languages: languages.map(lang => lang.value), // Extract the language values
+
                 });
 
                 // Handle successful registration
@@ -55,6 +88,7 @@ const RegisterPage = () => {
                 setAdditionalInfo('');
                 setAvatar('avatar1.jpg'); // Reset avatar to default
                 setUserType('mentee'); // Reset user type to default
+                setLanguages([]); // Clear the languages selection after successful registration
             } catch (error) {
                 if (error.response) {
                     console.error('Server responded with an error:', error.response.data);
@@ -164,6 +198,21 @@ const RegisterPage = () => {
                             placeholder=""
                             required
                         />
+                    </div>
+                    {/* Programming Languages Field */}
+                    <div className="form-group">
+                        <label>Programming Languages You Know:</label>
+                        <CreatableSelect
+                            defaultValue={[languagesOptions[2], languagesOptions[3]]}
+                            isMulti
+                            name="languages"
+                            options={languagesOptions} // Use the fetched languages directly
+                            components={animatedComponents}
+                        />
+
+
+
+
                     </div>
                     <div className="form-group">
                         <FieldToFill
