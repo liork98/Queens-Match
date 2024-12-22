@@ -1,35 +1,54 @@
-import pkg from 'pg'; // Default import
-const { Pool } = pkg;  // Destructure the Pool class
-import dotenv from 'dotenv';
+import pkg from "pg";
+const { Pool } = pkg;
+import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config();
 
-// Create a new Pool instance for managing multiple database connections
+console.log("Connecting with:");
+console.log("User:", process.env.PG_USER);
+console.log("Host:", process.env.PG_HOST);
+console.log("Port:", process.env.PG_PORT);
+console.log("Database:", process.env.PG_NAME);
+console.log("Password:", process.env.PG_PASSWORD);
+
 const pool = new Pool({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST, // The service name in docker-compose
-    database: process.env.PG_NAME,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_NAME,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
 });
 
-// Async function to handle the database operation
 const addLanguages = async () => {
-    const query = `
-        INSERT INTO ProgramingLanguages (name)
-        VALUES ('JavaScript'), ('Python'), ('C++'), ('Java');
-    `;
+  const query = `
+    SELECT setval('users_id_seq', 1, false);
+    INSERT INTO "ProgramingLanguages" (name)
+    VALUES 
+        ('JavaScript'), 
+        ('Python'), 
+        ('C++'), 
+        ('Java'), 
+        ('Ruby'), 
+        ('Go'), 
+        ('PHP'), 
+        ('Swift'), 
+        ('Kotlin'), 
+        ('TypeScript'), 
+        ('Rust'), 
+        ('Perl'), 
+        ('Scala'), 
+        ('Lua');
+`;
 
-    try {
-        // Execute the query using the pool
-        const res = await pool.query(query);
-        console.log('Query executed successfully', res);
-    } catch (err) {
-        console.error('Error executing query', err.stack);
-    } finally {
-        pool.end(); // Close the pool when done
-    }
+  try {
+    console.log("Running query:", query);
+    const res = await pool.query(query);
+    console.log("Query executed successfully", res);
+  } catch (err) {
+    console.error("Error executing query", err.stack);
+  } finally {
+    pool.end();
+  }
 };
 
-// Run the function to add languages
-addLanguages();
+await addLanguages();

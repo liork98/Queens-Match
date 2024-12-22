@@ -12,32 +12,4 @@
     z-index: 1000; /* Above other content */
 }
 
-.modal-content {
-    background-color: white; /* White background for modal */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding inside modal */
-    max-width: 500px; /* Max width for modal */
-    width: 90%; /* Responsive width */
-    text-align: center; /* Center text */
-}
 
-.profile-picture-large {
-    width: 100px; /* Width for the profile picture */
-    height: 100px; /* Height for the profile picture */
-    border-radius: 50%; /* Make it circular */
-    object-fit: cover; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Space below the picture */
-}
-
-button {
-    background-color: deeppink; /* Button color */
-    color: white; /* Button text color */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 20px; /* Padding for button */
-    cursor: pointer; /* Pointer cursor */
-}
-
-button:hover {
-    background-color: rgba(207, 44, 73, 0.7); /* Darker shade on hover */
-}

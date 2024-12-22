@@ -1,13 +1,14 @@
 .footer {
-    padding: 20px; /* Add padding around the footer */
+    padding: 5px; /* Add padding around the footer */
     background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
     text-align: center; /* Center-align text in footer */
+    position: fixed; /* Fix the footer to the bottom of the page */
     bottom: 0; /* Stick it to the bottom */
-    position: sticky;
+    width: 100%; /* Make the footer span the entire width of the page */
 }
 
 .footer-container {
-
+    /* You can add styling here if needed */
 }
 
 .footer-container p {
@@ -19,6 +20,3 @@ nav {
     display: flex;
     justify-content: center; /* Centering the items horizontally */
 }
-
-
-

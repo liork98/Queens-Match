@@ -1,4 +1,5 @@
-import pool from "../db.js";
+import pool from "./db.js";
+import bcrypt from "bcrypt";
 
 const users = [
   {
@@ -183,15 +184,22 @@ const users = [
   },
 ];
 
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  return hashedPassword;
+};
+
 const seedData = async () => {
   try {
-    console.log("PG_PASSWORD:", pool); // Debugging step
-
     for (const user of users) {
+      // Hash the password before inserting
+      const hashedPassword = await hashPassword(user.password);
+
       const insertUserQuery = `
-                INSERT INTO users (user_type, first_name, last_name, email, company, job_title, username, password, linkedin, profile_picture, details, additional_info, phone_number, programming_languages, id)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);
-            `;
+        INSERT INTO users (user_type, first_name, last_name, email, company, job_title, username, password, linkedin, profile_picture, details, additional_info, phone_number, programing_languages, id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);
+      `;
       const insertUserValues = [
         user.user_type,
         user.first_name,
@@ -200,7 +208,7 @@ const seedData = async () => {
         user.company,
         user.job_title,
         user.username,
-        user.password,
+        hashedPassword, // Use the hashed password here
         user.linkedin,
         user.profile_picture,
         user.details,
@@ -209,7 +217,6 @@ const seedData = async () => {
         user.programming_languages,
         user.id,
       ];
-      console.log("insertUserValues: " + JSON.stringify(insertUserValues));
 
       await pool.query(insertUserQuery, insertUserValues);
       console.log(`Inserted user: ${user.username}`);

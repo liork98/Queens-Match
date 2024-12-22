@@ -1,0 +1,84 @@
+/* Main container styling */
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+/* Container for the profile form */
+.profile-container {
+    /*width: 90%;*/
+    /*max-width: 600px;*/
+    padding: 40px;
+    border-radius: 10px;
+    background-color: rgba(255, 192, 203, 0.3); /* Light pink background */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    /*margin-top: 20px;*/
+    text-align: center;
+}
+
+/* Heading for the profile page */
+h1 {
+    text-align: center;
+    color: deeppink;
+    font-size: 3.5rem;
+    font-weight: lighter;
+    margin-bottom: 20px;
+}
+
+/* Form input group styling */
+.form-group {
+    /*margin-bottom: 20px;*/
+
+}
+
+/* Label styling */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+}
+
+/* Input field styling */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: deeppink;
+    outline: none;
+
+}
+
+/* Message displayed after form submission */
+.message {
+    margin-bottom: 20px;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* Styling for the file input label (clickable area) */
+.file-input-label {
+    cursor: pointer;
+    color: #007bff;
+
+    font-weight: bold;
+}
+
+.file-input-label:hover {
+    text-decoration: underline;
+}
+
+/* Hide the actual file input field */
+.file-input {
+    display: none;
+}

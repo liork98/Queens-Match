@@ -5,6 +5,8 @@
     justify-content: center; /* Center vertically */
     align-items: center;     /* Center horizontally */
     padding: 50px 20px;     /* Padding for top and bottom, smaller padding for sides */
+    font-weight: lighter;
+
 }
 
 .about-container {

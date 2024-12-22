@@ -77,21 +77,20 @@ a {
     text-decoration: underline; /* Remove underline from links */
 }
 
-/* Button styling */
 button.submit-button {
     background-color: deeppink;
-    color: white; /* White text color for button */
-    border: none; /* Remove border */
-    padding: 10px; /* Padding for button */
-    border-radius: 20px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
     position: relative;
     right: 10px;
 }
 
 button.submit-button:hover {
-    background-color: rgba(207, 44, 73, 0.8); /* Darker shade on hover */
+    background-color: rgba(207, 44, 73, 0.8);
 }
 
 /* Radio button styling */
