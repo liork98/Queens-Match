@@ -7,8 +7,15 @@ import makeAnimated from "react-select/animated";
 
 const ProfilePage = () => {
   const [profileData, setProfileData] = useState({
+    userType: "Mentee",
+    firstName: "",
+    lastName: "",
     username: "",
     email: "",
+    company: "",
+    jobTitle: "",
+    details: "",
+    additionalInfo: "",
     phone: "",
     programmingLanguages: [],
     linkedin: "",
@@ -16,7 +23,7 @@ const ProfilePage = () => {
   });
 
   const animatedComponents = makeAnimated();
-  const [languagesOptions, setLanguagesOptions] = useState();
+  const [languagesOptions, setLanguagesOptions] = useState([]);
   const [message, setMessage] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [previewPicture, setPreviewPicture] = useState("");
@@ -27,6 +34,8 @@ const ProfilePage = () => {
     programmingLanguages: false,
     linkedin: false,
     profilePicture: false,
+    jobTitle: false,
+    additionalInformation: false,
   });
 
   useEffect(() => {
@@ -40,14 +49,21 @@ const ProfilePage = () => {
         });
 
         setProfileData({
+          additionalInformation: response.data.additional_info || "",
+          company: response.data.company || "",
+          details: response.data.details || "",
+          firstName: response.data.first_name || "",
+          jobTitle: response.data.job_title || "",
           username: response.data.username || "",
           email: response.data.email || "",
           phone: response.data.phone_number || "",
-          programmingLanguages: response.data.programmingLanguages || [],
+          programmingLanguages: response.data.programing_languages || [],
           linkedin: response.data.linkedin || "",
           profilePicture: response.data.profile_picture || "",
+          userType: response.data.user_type === 1 ? "Mentor" : "Mentee",
         });
-        console.log("THIS::: ", response);
+        console.log("USER DATA: ", response.data);
+
         setPreviewPicture(
           response.data.profile_picture ? response.data.profile_picture : "",
         );
@@ -115,14 +131,19 @@ const ProfilePage = () => {
         "programmingLanguages",
         JSON.stringify(profileData.programmingLanguages),
       );
-
+      formData.append("company", profileData.company);
+      formData.append("details", profileData.details);
+      formData.append(
+        "additionalInformation",
+        profileData.additionalInformation,
+      );
+      formData.append("jobTitle", profileData.jobTitle);
       formData.append("linkedin", profileData.linkedin);
       if (profilePicture) {
         formData.append("profilePicture", profilePicture);
       }
 
       const token = localStorage.getItem("token");
-      console.log("programinglanguage:", profileData.programmingLanguages);
       await axios.put("http://localhost:5001/api/changeProfile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -143,6 +164,7 @@ const ProfilePage = () => {
       [field]: !prev[field],
     }));
   };
+
   const handleLanguagesChange = (selectedOptions) => {
     setProfileData((prevData) => ({
       ...prevData,
@@ -190,7 +212,6 @@ const ProfilePage = () => {
             </Button>
           </div>
 
-          {/* Email Section */}
           <div className="form-group">
             <label>Email:</label>
             {isEditing.email ? (
@@ -208,7 +229,6 @@ const ProfilePage = () => {
             </Button>
           </div>
 
-          {/* Phone Section */}
           <div className="form-group">
             <label>Phone:</label>
             {isEditing.phone ? (
@@ -225,23 +245,76 @@ const ProfilePage = () => {
               {isEditing.phone ? "Save" : "Edit"}
             </Button>
           </div>
+          {profileData.userType === "Mentor" && (
+            <div className="form-group">
+              <label>Job Title:</label>
+              {isEditing.jobTitle ? (
+                <input
+                  type="jobTitle"
+                  name="jobTitle"
+                  value={profileData.jobTitle}
+                  onChange={handleChange}
+                />
+              ) : (
+                <div>{profileData.jobTitle}</div>
+              )}
+              <Button type="button" onClick={() => toggleEdit("jobTitle")}>
+                {isEditing.jobTitle ? "Save" : "Edit"}
+              </Button>
+            </div>
+          )}
 
-          {/* Programming Languages Section */}
           <div className="form-group">
-            <label>Programming Languages:</label>
-            <CreatableSelect
-              value={profileData.programmingLanguages.map((lang) => ({
-                label: lang,
-                value: lang,
-              }))}
-              isMulti
-              onChange={handleLanguagesChange}
-              options={languagesOptions}
-              components={animatedComponents}
-            />
+            <label>Details:</label>
+            {isEditing.details ? (
+              <input
+                type="details"
+                name="details"
+                value={profileData.details}
+                onChange={handleChange}
+              />
+            ) : (
+              <div>{profileData.details}</div>
+            )}
+            <Button type="button" onClick={() => toggleEdit("details")}>
+              {isEditing.details ? "Save" : "Edit"}
+            </Button>
+          </div>
+          {profileData.userType === "Mentor" && (
+            <div className="form-group">
+              <label>Programming Languages:</label>
+              <CreatableSelect
+                value={languagesOptions.filter((option) =>
+                  profileData.programmingLanguages.includes(option.value),
+                )}
+                isMulti
+                onChange={handleLanguagesChange}
+                options={languagesOptions}
+                components={animatedComponents}
+              />
+            </div>
+          )}
+
+          <div className="form-group">
+            <label>Additional Information:</label>
+            {isEditing.additionalInformation ? (
+              <input
+                type="additionalInformation"
+                name="additionalInformation"
+                value={profileData.additionalInformation}
+                onChange={handleChange}
+              />
+            ) : (
+              <div>{profileData.additionalInformation}</div>
+            )}
+            <Button
+              type="button"
+              onClick={() => toggleEdit("additionalInformation")}
+            >
+              {isEditing.additionalInformation ? "Save" : "Edit"}
+            </Button>
           </div>
 
-          {/* LinkedIn Section */}
           <div className="form-group">
             <label>LinkedIn:</label>
             {isEditing.linkedin ? (

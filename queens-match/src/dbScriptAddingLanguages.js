@@ -1,26 +1,10 @@
-import pkg from "pg";
-const { Pool } = pkg;
 import dotenv from "dotenv";
-
+import pool from "./db.js";
 dotenv.config();
-
-console.log("Connecting with:");
-console.log("User:", process.env.PG_USER);
-console.log("Host:", process.env.PG_HOST);
-console.log("Port:", process.env.PG_PORT);
-console.log("Database:", process.env.PG_NAME);
-console.log("Password:", process.env.PG_PASSWORD);
-
-const pool = new Pool({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_NAME,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT,
-});
 
 const addLanguages = async () => {
   const query = `
+    TRUNCATE TABLE "ProgramingLanguages" RESTART IDENTITY;
     SELECT setval('users_id_seq', 1, false);
     INSERT INTO "ProgramingLanguages" (name)
     VALUES 
@@ -37,7 +21,10 @@ const addLanguages = async () => {
         ('Rust'), 
         ('Perl'), 
         ('Scala'), 
-        ('Lua');
+        ('Lua'),
+        ('C#'), 
+        ('HTML'), 
+        ('CSS')
 `;
 
   try {

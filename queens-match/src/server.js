@@ -34,7 +34,6 @@ app.use(
   ),
 );
 
-// API endpoint to get users
 app.get("/api/users", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM users");
@@ -167,14 +166,12 @@ app.post("/login", async (req, res) => {
         .json({ message: "Invalid credentials- not use in DB" });
     }
 
-    // Compare the password with the hashed password in the database
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials- no match" });
     }
 
-    // Create a JWT token
     const token = jwt.sign(
       { id: user.id, username: user.username },
       process.env.JWT_SECRET || "your_jwt_secret",
@@ -196,13 +193,12 @@ const authenticateJWT = (req, res, next) => {
   }
 
   try {
-    // Decode the JWT token to get user information (id, username, etc.)
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET || "your_jwt_secret",
     );
-    req.user = decoded; // Store the decoded user info in req.user
-    next(); // Proceed to the next middleware or route handler
+    req.user = decoded;
+    next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
@@ -213,7 +209,7 @@ app.get("/api/profile", authenticateJWT, async (req, res) => {
     const userId = req.user.id;
 
     const query =
-      "SELECT id, username, first_name, last_name, phone_number, profile_picture, email, company, job_title, linkedin, details, additional_info FROM users WHERE id = $1";
+      "SELECT id, user_type, first_name,email, company, job_title, username, profile_picture, details, last_name, linkedin, additional_info, id, phone_number, programing_languages FROM users WHERE id = $1";
     const values = [userId];
     const result = await pool.query(query, values);
 
@@ -223,6 +219,7 @@ app.get("/api/profile", authenticateJWT, async (req, res) => {
     }
 
     res.json(user);
+    console.log("User profile: ", user);
   } catch (error) {
     console.error("Error fetching user profile:", error);
     res.status(500).json({ message: "Server error" });
@@ -231,20 +228,19 @@ app.get("/api/profile", authenticateJWT, async (req, res) => {
 
 const findById = async (userId) => {
   try {
-    const query = "SELECT * FROM users WHERE id = $1"; // Assuming your table is named 'users' and you want to find by 'id'
-    const values = [userId]; // Parameterized query to prevent SQL injection
+    const query = "SELECT * FROM users WHERE id = $1";
+    const values = [userId];
 
     const result = await pool.query(query, values);
 
-    // Check if a user was found
     if (result.rows.length > 0) {
-      return result.rows[0]; // Return the first user found
+      return result.rows[0];
     } else {
-      return null; // No user found
+      return null;
     }
   } catch (error) {
     console.error("Error fetching user:", error);
-    throw error; // Rethrow error so it can be handled by the calling function
+    throw error;
   }
 };
 
@@ -274,8 +270,16 @@ app.put(
     try {
       console.log("STARTING PROFILE");
       const userId = req.user.id; // Get user ID from token (authenticateJWT)
-      const { email, username, phone, programmingLanguages, linkedin } =
-        req.body;
+      const {
+        email,
+        username,
+        phone,
+        programmingLanguages,
+        linkedin,
+        details,
+        additionalInformation,
+        jobTitle,
+      } = req.body;
 
       const user = await findById(userId);
       if (!user) {
@@ -285,6 +289,7 @@ app.put(
       const updatedEmail = email || user.email;
       const updatedUsername = username || user.username;
       const updatedPhone = phone || user.phone_number;
+
       const updatedLinkedin = linkedin || user.linkedin;
       const updatedProgrammingLanguages = programmingLanguages
         ? JSON.parse(programmingLanguages)
@@ -293,11 +298,15 @@ app.put(
       const updatedProfilePicture = req.file
         ? "/assets/uploads/" + req.file.filename
         : user.profile_picture;
+      const updatedAdditionalInformation =
+        additionalInformation || user.additionalInformation;
+      const updatedJobTitle = jobTitle || user.job_title;
+      const updatedDetails = details || user.details;
 
       const updateQuery = `
         UPDATE users
-        SET email = $1, username = $2, phone_number = $3, linkedin = $4, programing_languages = $5, profile_picture = $6
-        WHERE id = $7
+        SET email = $1, username = $2, phone_number = $3, linkedin = $4, programing_languages = $5, profile_picture = $6, additional_info= $7, job_title = $8, details = $9
+        WHERE id = $10
           RETURNING *;
       `;
 
@@ -308,8 +317,11 @@ app.put(
         updatedUsername,
         updatedPhone,
         updatedLinkedin,
-        formattedProgrammingLanguages, // Use the formatted array
+        formattedProgrammingLanguages,
         updatedProfilePicture,
+        updatedAdditionalInformation,
+        updatedJobTitle,
+        updatedDetails,
         userId,
       ];
 
@@ -325,8 +337,11 @@ app.put(
           username: updatedUser.username,
           phone: updatedUser.phone_number,
           linkedin: updatedUser.linkedin,
-          programmingLanguages: updatedUser.programing_languages, // Correct key here
+          programmingLanguages: updatedUser.programing_languages,
           profilePicture: updatedUser.profile_picture,
+          additionalInformation: updatedUser.additional_info,
+          jobTitle: updatedUser.job_title,
+          details: updatedUser.details,
         },
       });
     } catch (error) {

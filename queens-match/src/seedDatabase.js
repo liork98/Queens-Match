@@ -16,7 +16,7 @@ const users = [
     details: "CS student passionate about software development and AI.",
     additional_info:
       "Loves solving problems and is currently working on a machine learning project.",
-    phone_number: "1234567890",
+    phone_number: "+972521129300", // Updated phone number
     programming_languages: ["JavaScript", "Python"],
     id: "1",
   },
@@ -34,7 +34,7 @@ const users = [
     details: "Frontend developer with a love for user experience.",
     additional_info:
       "Enjoys creating visually appealing and user-friendly web applications.",
-    phone_number: "2345678901",
+    phone_number: "+972523456789", // Updated phone number
     programming_languages: ["JavaScript", "HTML", "CSS"],
     id: "2",
   },
@@ -52,7 +52,7 @@ const users = [
     details: "Aspiring data scientist with a background in statistics.",
     additional_info:
       "Passionate about uncovering insights from data and loves working with Python.",
-    phone_number: "3456789012",
+    phone_number: "+972534567890", // Updated phone number
     programming_languages: ["Python", "SQL"],
     id: "3",
   },
@@ -70,7 +70,7 @@ const users = [
     details: "CS student focusing on cloud computing and services.",
     additional_info:
       "Keen on learning about cloud architectures and DevOps practices.",
-    phone_number: "4567890123",
+    phone_number: "+972545678901", // Updated phone number
     programming_languages: ["Java", "Python"],
     id: "4",
   },
@@ -88,7 +88,7 @@ const users = [
     details: "Aspiring mobile developer passionate about app design.",
     additional_info:
       "Currently developing a personal finance tracking app as a side project.",
-    phone_number: "5678901234",
+    phone_number: "+972556789012", // Updated phone number
     programming_languages: ["Swift", "JavaScript"],
     id: "5",
   },
@@ -106,7 +106,7 @@ const users = [
     details: "Software engineering student eager to learn and grow.",
     additional_info:
       "Loves coding and participates in hackathons to enhance her skills.",
-    phone_number: "6789012345",
+    phone_number: "+972567890123", // Updated phone number
     programming_languages: ["JavaScript", "C++"],
     id: "6",
   },
@@ -124,7 +124,7 @@ const users = [
     details: "UI/UX student passionate about creating engaging designs.",
     additional_info:
       "Aims to improve user experiences through research and design iterations.",
-    phone_number: "7890123456",
+    phone_number: "+972578901234", // Updated phone number
     programming_languages: ["Figma", "JavaScript"],
     id: "7",
   },
@@ -142,7 +142,7 @@ const users = [
     details: "CS student interested in cybersecurity and ethical hacking.",
     additional_info:
       "Active member of her university’s cybersecurity club and loves challenges.",
-    phone_number: "8901234567",
+    phone_number: "+972589012345", // Updated phone number
     programming_languages: ["Python", "C"],
     id: "8",
   },
@@ -160,7 +160,7 @@ const users = [
     details: "Senior developer specializing in AI and machine learning.",
     additional_info:
       "Mentors junior developers and is passionate about AI ethics.",
-    phone_number: "9012345678",
+    phone_number: "+972590123456", // Updated phone number
     programming_languages: ["Python", "Java"],
     id: "9",
   },
@@ -178,7 +178,7 @@ const users = [
     details: "Cybersecurity expert with experience in penetration testing.",
     additional_info:
       "Enthusiastic about sharing knowledge and speaking at tech conferences.",
-    phone_number: "0123456789",
+    phone_number: "+972601234567", // Updated phone number
     programming_languages: ["Python", "C"],
     id: "10",
   },

@@ -1,4 +1,3 @@
-/* src/pages/RegisterPage.css */
 .register-page {
     display: flex;
     flex-direction: column;
@@ -7,11 +6,10 @@
     margin-bottom: 100px;
     height: 700px;          /* Full viewport height */
     padding-top: 150px;
-    padding-bottom: 200px;
+    padding-bottom: 400px;
 }
 
 .register-container {
-
     width: 300px;
     padding: 20px;
     border-radius: 10px;
@@ -32,7 +30,6 @@ h1 {
     margin-bottom: 25px; /* Margin between form groups */
 }
 
-/* Input styling */
 input, select {
     cursor: pointer;
     width: 80%; /* Full width of the input */
@@ -43,25 +40,21 @@ input, select {
     text-align: center; /* Center the text inside the input */
 }
 
-/* Placeholder styling */
 input::placeholder {
     color: rgba(0, 0, 0, 0.5); /* Light black color for the placeholder */
     font-size: 110%;
     font-weight: lighter;
 }
 
-/* Input focus state */
 input:focus, select:focus {
     border-color: deeppink; /* Border color on focus */
     outline: none; /* Remove default outline */
 }
 
-/* Select styling for avatar selection */
 select {
     background-color: white; /* White background for select */
 }
 
-/* Error message styling */
 .error {
     color: #1159ed; /* Error message color */
     text-align: center; /* Center the error message */
@@ -71,7 +64,6 @@ select {
     border-radius: 30px;
 }
 
-/* Link styling */
 a {
     color: #000; /* Link color */
     text-decoration: underline; /* Remove underline from links */

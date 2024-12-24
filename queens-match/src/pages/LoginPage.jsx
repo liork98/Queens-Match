@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./LoginPage.css";
 import Button from "../components/Button.jsx"; // Import Button component
 import FieldToFill from "../components/FieldToFill.jsx"; // Import FieldToFill component
 import axios from "axios";
+import { AuthContext } from "../contexts/AuthContext.js";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate(); // Initialize navigate
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,14 +21,13 @@ const LoginPage = () => {
 
     if (username && password) {
       try {
-        // Send a POST request to the backend API for login
         const response = await axios.post("/login", {
           username,
           password,
         });
 
-        // Handle successful login
-        const { token } = response.data; // Assuming your API returns a token
+        const { token } = response.data;
+        login(response.data);
         setSuccess(`Logged in as ${username}.`);
         localStorage.setItem("token", token);
         alert(`Logged in successfully!`);
@@ -34,7 +35,7 @@ const LoginPage = () => {
         // Redirect to home after a short delay
         setTimeout(() => {
           navigate("/home");
-        }, 1000);
+        }, 1500);
       } catch (error) {
         if (error.response) {
           console.error("Server responded with an error:", error.response.data);

@@ -19,10 +19,9 @@ const RegisterPage = () => {
   const [details, setDetails] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [avatar, setAvatar] = useState("avatar1.jpg");
-  const [userType, setUserType] = useState("mentee");
+  const [userType, setUserType] = useState("Mentee");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
   const [languages, setLanguages] = useState([]); // State for selected programming languages
   const [languagesOptions, setLanguagesOptions] = useState([]); // State for selected programming languages
 
@@ -37,7 +36,6 @@ const RegisterPage = () => {
           value: lang.name,
         }));
         setLanguagesOptions(options);
-        console.log("Fetched languages:", languagesOptions);
       } catch (error) {
         console.error("Error fetching programming languages:", error);
       }
@@ -59,11 +57,9 @@ const RegisterPage = () => {
       first_name &&
       last_name
     ) {
-      // Check all required fields
       try {
-        // Send a POST request to the backend API for registration
         const response = await axios.post("http://localhost:5001/register", {
-          user_type: userType === "mentor" ? 1 : 0, // 1 for mentor, 0 for mentee
+          user_type: userType === "Mentor" ? 1 : 0, // 1 for mentor, 0 for mentee
           username,
           email,
           password,
@@ -72,26 +68,24 @@ const RegisterPage = () => {
           phone_number,
           linkedin,
           details,
-          additional_info, // Corrected variable name to match state
-          profile_picture: avatar, // Include selected avatar
-          languages: languages.map((lang) => lang.value), // Extract the language values
+          additional_info,
+          profile_picture: avatar,
+          languages: languages.map((lang) => lang.value),
         });
 
-        // Handle successful registration
         setSuccess("Registration successful! You can now log in.");
-        // Reset fields
         setUsername("");
         setEmail("");
         setPassword("");
         setFirstName("");
         setLastName("");
         setPhoneNumber("");
-        setLinkedin(""); // Updated variable name to match state
+        setLinkedin("");
         setDetails("");
         setAdditionalInfo("");
-        setAvatar("avatar1.jpg"); // Reset avatar to default
-        setUserType("mentee"); // Reset user type to default
-        setLanguages([]); // Clear the languages selection after successful registration
+        setAvatar("avatar1.jpg");
+        setUserType("Mentor");
+        setLanguages([]);
       } catch (error) {
         if (error.response) {
           console.error("Server responded with an error:", error.response.data);
@@ -122,6 +116,31 @@ const RegisterPage = () => {
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>User Type:</label>
+            <div className="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  value="Mentor"
+                  name="user_type"
+                  onChange={(e) => setUserType(e.target.value)}
+                  required
+                />
+                Mentor
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="Mentee"
+                  name="user_type"
+                  onChange={(e) => setUserType(e.target.value)}
+                  required
+                />
+                Mentee
+              </label>
+            </div>
+          </div>
           <div className="form-group">
             <FieldToFill
               label="Username:"
@@ -182,16 +201,17 @@ const RegisterPage = () => {
               required
             />
           </div>
-          <div className="form-group">
-            <FieldToFill
-              label="Linkedin Profile:"
-              type="text"
-              value={linkedin}
-              onChange={(e) => setLinkedin(e.target.value)}
-              placeholder=""
-              required
-            />
-          </div>
+          {userType !== "Mentor" && (
+            <div className="form-group">
+              <FieldToFill
+                label="Linkedin Profile:"
+                type="text"
+                value={linkedin}
+                onChange={(e) => setLinkedin(e.target.value)}
+                placeholder=""
+              />
+            </div>
+          )}
           <div className="form-group">
             <FieldToFill
               label="Details:"
@@ -202,17 +222,19 @@ const RegisterPage = () => {
               required
             />
           </div>
-          {/* Programming Languages Field */}
-          <div className="form-group">
-            <label>Programming Languages You Know:</label>
-            <CreatableSelect
-              defaultValue={[languagesOptions[2], languagesOptions[3]]}
-              isMulti
-              name="languages"
-              options={languagesOptions} // Use the fetched languages directly
-              components={animatedComponents}
-            />
-          </div>
+          {userType === "Mentor" && (
+            <div className="form-group">
+              <label>Programming Languages You Know:</label>
+              <CreatableSelect
+                isMulti
+                name="languages"
+                //name={userType}
+                options={languagesOptions}
+                components={animatedComponents}
+              />
+            </div>
+          )}
+
           <div className="form-group">
             <FieldToFill
               label="Additional Info:"
@@ -220,10 +242,8 @@ const RegisterPage = () => {
               value={additional_info}
               onChange={(e) => setAdditionalInfo(e.target.value)}
               placeholder=""
-              required
             />
           </div>
-          {/* Avatar Selection */}
           <div className="form-group">
             <label htmlFor="avatar">Choose an Avatar:</label>
             <select
@@ -241,32 +261,7 @@ const RegisterPage = () => {
               <option value="avatar8.jpg">Avatar 8</option>
             </select>
           </div>
-          {/* User Type Selection */}
-          <div className="form-group">
-            <label>User Type:</label>
-            <div className="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  value="mentor"
-                  name="user_type"
-                  onChange={(e) => setUserType(e.target.value)} // Update the state with the selected user type
-                  required
-                />
-                Mentor
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="mentee"
-                  name="user_type"
-                  onChange={(e) => setUserType(e.target.value)} // Update the state with the selected user type
-                  required
-                />
-                Mentee
-              </label>
-            </div>
-          </div>
+
           <Button type="submit" className="submit-button">
             Register
           </Button>
