@@ -13,21 +13,19 @@ dotenv.config();
 const app = express();
 const port = 5001;
 
-// Check database connection
 pool
   .connect()
   .then((client) => {
     console.log("Connected to the database");
-    client.release(); // Release the client after successful connection
+    client.release();
   })
   .catch((err) => {
     console.error("Database connection error:", err.stack);
   });
 
-app.use(cors()); // Enable CORS for all requests
-app.use(express.json()); // Parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
-// Serve uploaded files from the 'uploads' directory
 app.use(
   "/uploads",
   express.static(
@@ -72,7 +70,6 @@ app.post("/api/sendEmail", async (req, res) => {
   }
 
   try {
-    // Fetch sender info from the database
     const senderQuery = "SELECT * FROM users WHERE id = $1";
     const senderResult = await pool.query(senderQuery, [senderId]);
 
@@ -82,12 +79,11 @@ app.post("/api/sendEmail", async (req, res) => {
 
     const sender = senderResult.rows[0];
 
-    // Use nodemailer to send the email
     const transporter = nodemailer.createTransport({
-      service: "Gmail", // You can change this to a different email service
+      service: "Gmail",
       auth: {
-        user: process.env.EMAIL_USER, // Email address
-        pass: process.env.EMAIL_PASS, // Email password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -98,10 +94,8 @@ app.post("/api/sendEmail", async (req, res) => {
       text: message,
     };
 
-    // Send the email
     await transporter.sendMail(mailOptions);
 
-    // Update the sender's `emails_sent` column
     const updateEmailsQuery =
       "UPDATE users SET emails_sent = emails_sent + 1 WHERE id = $1";
     await pool.query(updateEmailsQuery, [senderId]);
@@ -118,7 +112,7 @@ app.post("/api/sendEmail", async (req, res) => {
 app.get("/api/users", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM users");
-    res.json(result.rows); // Send user data as JSON
+    res.json(result.rows);
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -126,7 +120,7 @@ app.get("/api/users", async (req, res) => {
 });
 
 app.get("/api/getProfilePicture/:username", async (req, res) => {
-  const { username } = req.params; // Extract from the URL parameter
+  const { username } = req.params;
 
   if (!username) {
     return res.status(400).json({ error: "Username is required" });
@@ -134,7 +128,7 @@ app.get("/api/getProfilePicture/:username", async (req, res) => {
 
   try {
     const result = await pool.query(
-      'SELECT profile_picture FROM "users" WHERE username = $1', // You can also use email here
+      'SELECT profile_picture FROM "users" WHERE username = $1',
       [username],
     );
 
@@ -142,7 +136,7 @@ app.get("/api/getProfilePicture/:username", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.json({ profilePicture: result.rows[0].profile_picture }); // Send profile picture URL
+    res.json({ profilePicture: result.rows[0].profile_picture });
   } catch (error) {
     console.error("Error fetching profile picture:", error);
     res.status(500).json({ error: "Failed to fetch profile picture" });
@@ -176,7 +170,6 @@ app.post("/register", async (req, res) => {
     additional_info,
   } = req.body;
   try {
-    // Check if user already exists (by email)
     const checkUserQuery = "SELECT * FROM users WHERE email = $1";
     const checkUserValues = [email];
     const checkUserResult = await pool.query(checkUserQuery, checkUserValues);
@@ -185,10 +178,8 @@ app.post("/register", async (req, res) => {
       return res.status(409).json({ message: "Email already exists" });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Insert new user into the database
     const insertUserQuery = `
             INSERT INTO users (user_type, first_name, last_name, phone_number, profile_picture, email, password, company, job_title, username, linkedin, details, additional_info)
             VALUES ($1, $2,
@@ -197,19 +188,19 @@ app.post("/register", async (req, res) => {
         `;
 
     const insertUserValues = [
-      user_type, // $1
-      first_name, // $2
-      last_name, // $3
-      phone_number, // $4
-      `Avatars/${profile_picture}`, // $5
-      email, // $6
-      hashedPassword, // $7
-      company, // $8
-      job_title, // $9
-      username, // $10
-      linkedin, // $11
-      details, // $12
-      additional_info, // $13
+      user_type,
+      first_name,
+      last_name,
+      phone_number,
+      `Avatars/${profile_picture}`,
+      email,
+      hashedPassword,
+      company,
+      job_title,
+      username,
+      linkedin,
+      details,
+      additional_info,
     ];
 
     const insertUserResult = await pool.query(
@@ -218,7 +209,6 @@ app.post("/register", async (req, res) => {
     );
     const newUser = insertUserResult.rows[0];
 
-    // Optionally, create a JWT token for the new user
     const token = jwt.sign(
       { id: newUser.id, username: newUser.username },
       process.env.JWT_SECRET || "your_jwt_secret",
@@ -332,12 +322,12 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "uploads"));
   },
   filename: (req, file, cb) => {
-    const extname = path.extname(file.originalname).toLowerCase(); // Ensure correct extension
+    const extname = path.extname(file.originalname).toLowerCase();
     if (extname !== ".jpg" && extname !== ".jpeg") {
       console.log("extname: " + extname);
       return cb(new Error("Only JPG or JPEG files are allowed"));
     }
-    cb(null, Date.now() + extname); // Save file with the correct extension
+    cb(null, Date.now() + extname);
   },
 });
 
@@ -350,7 +340,7 @@ app.put(
   async (req, res) => {
     try {
       console.log("STARTING PROFILE");
-      const userId = req.user.id; // Get user ID from token (authenticateJWT)
+      const userId = req.user.id;
       const {
         email,
         username,

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Modal.css";
 import Button from "./Button.jsx";
 import DatePicker from "react-datepicker";
@@ -15,28 +15,27 @@ const AppointmentModal = ({ isOpen, onClose, user, currentUserId }) => {
     return null;
   }
 
-  // Schedule an appointment and send data to the backend
   const handleScheduleAppointment = async () => {
     if (!selectedDate) {
       alert("Please select a date and time.");
       return;
     }
 
-    setLoading(true); // Start loading
+    setLoading(true);
     console.log(userData);
     try {
       console.log({
-        menteeId: userData.id, // The logged-in user (mentee)
-        mentorId: currentUserId, // The mentor
-        appointmentDate: selectedDate.toISOString(), // Send date as ISO string
+        menteeId: userData.id,
+        mentorId: currentUserId,
+        appointmentDate: selectedDate.toISOString(),
       });
 
       const response = await axios.post(
         "http://localhost:5001/api/scheduleAppointment",
         {
-          menteeId: userData.id, // The logged-in user (mentee)
-          mentorId: currentUserId, // The mentor
-          appointmentDate: selectedDate.toISOString(), // Send date as ISO string
+          menteeId: userData.id,
+          mentorId: currentUserId,
+          appointmentDate: selectedDate.toISOString(),
         },
       );
 
@@ -46,12 +45,12 @@ const AppointmentModal = ({ isOpen, onClose, user, currentUserId }) => {
         alert("Failed to schedule appointment. Please try again.");
       }
 
-      onClose(); // Close the appointment modal
+      onClose();
     } catch (error) {
       console.error("Error scheduling appointment:", error);
       alert("Failed to schedule appointment. Please try again.");
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -69,11 +68,11 @@ const AppointmentModal = ({ isOpen, onClose, user, currentUserId }) => {
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
             showTimeSelect
-            dateFormat="Pp" // Combines the date and time format
+            dateFormat="Pp"
             timeFormat="HH:mm"
-            timeIntervals={15} // Time selection in intervals of 15 minutes
-            minDate={new Date()} // Prevent past dates
-            filterDate={(date) => date.getDay() !== 0 && date.getDay() !== 6} // Optional: Disable weekends
+            timeIntervals={15}
+            minDate={new Date()}
+            filterDate={(date) => date.getDay() !== 0 && date.getDay() !== 6}
             showMonthYearDropdown
           />
         </div>

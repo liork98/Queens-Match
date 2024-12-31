@@ -5,7 +5,7 @@ import "./HomePage.css";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const [userProfiles, setUserProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -58,14 +58,13 @@ const HomePage = () => {
     setSelectedUser(null);
   };
 
-  // Check if the user is already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       console.log("User already logged in, navigating to /home...");
-      navigate("/"); // Redirect to home page if already logged in
+      navigate("/");
     }
-  }, [navigate]); // Runs only on component mount
+  }, [navigate]);
 
   return (
     <div className="user-profile-page">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./RegisterPage.css";
 import Button from "../components/Button.jsx";
 import FieldToFill from "../components/FieldToFill.jsx";
@@ -22,8 +22,8 @@ const RegisterPage = () => {
   const [userType, setUserType] = useState("Mentee");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [languages, setLanguages] = useState([]); // State for selected programming languages
-  const [languagesOptions, setLanguagesOptions] = useState([]); // State for selected programming languages
+  const [languages, setLanguages] = useState([]);
+  const [languagesOptions, setLanguagesOptions] = useState([]);
 
   useEffect(() => {
     const fetchLanguages = async () => {
@@ -46,8 +46,8 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous error message
-    setSuccess(""); // Clear any previous success message
+    setError("");
+    setSuccess("");
 
     if (
       username &&
@@ -59,7 +59,7 @@ const RegisterPage = () => {
     ) {
       try {
         const response = await axios.post("http://localhost:5001/register", {
-          user_type: userType === "Mentor" ? 1 : 0, // 1 for mentor, 0 for mentee
+          user_type: userType === "Mentor" ? 1 : 0,
           username,
           email,
           password,

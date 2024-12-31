@@ -2,7 +2,6 @@ import "./MenteeDashboard.css";
 import React, { useState } from "react";
 import Appointments from "../components/Dashboard/Appointments.jsx";
 
-// Components for different sections of the dashboard
 function DashboardOverview() {
   return <h2>Welcome to your Dashboard</h2>;
 }
@@ -15,9 +14,7 @@ function ProfileSettings() {
   return <h2>Profile Settings</h2>;
 }
 
-// Main Dashboard Component
 export default function MenteeDashboardPage() {
-  // State to manage the active tab
   const [activeTab, setActiveTab] = useState("overview");
 
   return (

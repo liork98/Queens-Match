@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import axios from "axios";
 import Button from "../components/Button.jsx";
@@ -105,11 +105,10 @@ const ProfilePage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setProfilePicture(file);
-    // Show a preview of the selected image
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setPreviewPicture(reader.result); // Preview the new uploaded image
+        setPreviewPicture(reader.result);
       };
       reader.readAsDataURL(file);
     }

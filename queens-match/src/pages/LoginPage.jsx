@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import "./LoginPage.css";
-import Button from "../components/Button.jsx"; // Import Button component
-import FieldToFill from "../components/FieldToFill.jsx"; // Import FieldToFill component
+import Button from "../components/Button.jsx";
+import FieldToFill from "../components/FieldToFill.jsx";
 import axios from "axios";
 import { AuthContext } from "../contexts/AuthContext.js";
 
@@ -11,22 +11,21 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const { login, updateUserData } = useContext(AuthContext);
 
-  // Check if the user is already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       console.log("User already logged in, navigating to /home...");
-      navigate("/home"); // Redirect to home page if already logged in
+      navigate("/home");
     }
-  }, [navigate]); // Runs only on component mount
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous error message
-    setSuccess(""); // Clear any previous success message
+    setError("");
+    setSuccess("");
 
     if (username && password) {
       try {

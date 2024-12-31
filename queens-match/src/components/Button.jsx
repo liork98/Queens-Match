@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "./Button.css";
 
@@ -17,7 +16,6 @@ const Button = ({
     );
   }
 
-  // Render a regular button if no `to` prop is passed
   return (
     <button type={type} className={`custom-button ${className}`} {...props}>
       {children}

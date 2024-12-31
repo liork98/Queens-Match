@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Modal.css";
 import Button from "./Button.jsx";
 import AppointmentModal from "./AppointmentModal.jsx";
 
 const Modal = ({ isOpen, onClose, user, currentUserId }) => {
-  const [isAppointmentModalOpen, setAppointmentModalOpen] = useState(false); // For appointment modal
+  const [isAppointmentModalOpen, setAppointmentModalOpen] = useState(false);
 
   if (!isOpen || !user) {
     return null;
@@ -13,12 +13,10 @@ const Modal = ({ isOpen, onClose, user, currentUserId }) => {
   const whatsappLink = `https://wa.me/${user.phone_number}`;
   const mailtoLink = `mailto:${user.email}`;
 
-  // Open the appointment modal
   const handleCreateAppointment = () => {
     setAppointmentModalOpen(true);
   };
 
-  // Close the appointment modal
   const handleCloseAppointmentModal = () => {
     setAppointmentModalOpen(false);
   };

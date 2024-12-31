@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import Button from "./Button.jsx";
@@ -7,7 +7,7 @@ import { AuthContext } from "../contexts/AuthContext.js";
 const logoPath = `${process.env.PUBLIC_URL}/assets/QueenB_Logo_white.svg`;
 const Header = () => {
   const { userData, logout, userToken } = useContext(AuthContext);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {

@@ -1,28 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext.js";
 import "./Appointments.css";
 
 export default function Appointments() {
-  const { userData } = useContext(AuthContext); // Context for the logged-in user
-  const [appointments, setAppointments] = useState([]); // State to store appointments
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const { userData } = useContext(AuthContext);
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch appointments from the backend
     const fetchAppointments = async () => {
       try {
         console.log("Fetching appointments for user:", userData.id);
         const response = await axios.get(
           `http://localhost:5001/api/appointments/${userData.id}`,
         );
-        setAppointments(response.data); // Store appointments in state
-        setLoading(false); // Stop loading
+        setAppointments(response.data);
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching appointments:", err);
         setError("Failed to load appointments. Please try again.");
-        setLoading(false); // Stop loading even if there's an error
+        setLoading(false);
       }
     };
     console.log("About to fetch appointments");
@@ -30,7 +29,7 @@ export default function Appointments() {
     if (userData) {
       fetchAppointments();
     }
-  }, [userData]); // Re-run if the user data changes
+  }, [userData]);
 
   if (loading) {
     return <div>Loading your appointments...</div>;
