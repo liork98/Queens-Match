@@ -6,8 +6,9 @@ import { AuthContext } from "../contexts/AuthContext.js";
 
 const logoPath = `${process.env.PUBLIC_URL}/assets/QueenB_Logo_white.svg`;
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { userData, logout, userToken } = useContext(AuthContext);
   const navigate = useNavigate(); // Initialize useNavigate hook
+  const token = localStorage.getItem("token");
 
   const handleLogout = () => {
     logout();
@@ -21,15 +22,16 @@ const Header = () => {
         <img src={logoPath} alt="Queen B Logo" className="header-logo" />
         <nav>
           <ul className="nav-list">
-            {user ? (
+            {token ? (
               <Button to="/home">Home</Button>
             ) : (
               <Button to="/">Home</Button>
             )}
             <Button to="/about">About</Button>
             <Button to="/contact">Contact</Button>
-            {user && <Button to="/profilepage">Profile</Button>}
-            {user && <Button onClick={handleLogout}>Logout</Button>}
+            {token && <Button to="/profilepage">Profile</Button>}
+            {token && <Button to="/menteeDashboard">Dashboard</Button>}
+            {token && <Button onClick={handleLogout}>Logout</Button>}
           </ul>
         </nav>
       </div>

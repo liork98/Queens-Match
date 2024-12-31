@@ -6,6 +6,7 @@ import pool from "./db.js";
 import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
@@ -33,6 +34,86 @@ app.use(
     path.join(path.dirname(new URL(import.meta.url).pathname), "uploads"),
   ),
 );
+
+app.post("/api/scheduleAppointment", async (req, res) => {
+  const { menteeId, mentorId, appointmentDate } = req.body;
+
+  if (!menteeId || !mentorId || !appointmentDate) {
+    return res.status(400).json({ message: "Missing required fields." });
+  }
+
+  try {
+    const query = `
+      INSERT INTO appointments (mentee_id, mentor_id, appointment_date, status)
+      VALUES ($1, $2, $3, 'pending')
+      RETURNING *;
+    `;
+    const values = [menteeId, mentorId, appointmentDate];
+
+    const result = await pool.query(query, values);
+
+    res.status(201).json({
+      message: "Appointment scheduled successfully!",
+      appointment: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error scheduling appointment:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to schedule appointment. Please try again." });
+  }
+});
+
+app.post("/api/sendEmail", async (req, res) => {
+  const { senderId, recipientEmail, subject, message } = req.body;
+
+  if (!senderId || !recipientEmail || !subject || !message) {
+    return res.status(400).json({ message: "Missing required fields." });
+  }
+
+  try {
+    // Fetch sender info from the database
+    const senderQuery = "SELECT * FROM users WHERE id = $1";
+    const senderResult = await pool.query(senderQuery, [senderId]);
+
+    if (senderResult.rows.length === 0) {
+      return res.status(404).json({ message: "Sender not found." });
+    }
+
+    const sender = senderResult.rows[0];
+
+    // Use nodemailer to send the email
+    const transporter = nodemailer.createTransport({
+      service: "Gmail", // You can change this to a different email service
+      auth: {
+        user: process.env.EMAIL_USER, // Email address
+        pass: process.env.EMAIL_PASS, // Email password
+      },
+    });
+
+    const mailOptions = {
+      from: sender.email,
+      to: recipientEmail,
+      subject: subject,
+      text: message,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
+    // Update the sender's `emails_sent` column
+    const updateEmailsQuery =
+      "UPDATE users SET emails_sent = emails_sent + 1 WHERE id = $1";
+    await pool.query(updateEmailsQuery, [senderId]);
+
+    res.status(200).json({ message: "Email sent successfully!" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to send email. Please try again." });
+  }
+});
 
 app.get("/api/users", async (req, res) => {
   try {
@@ -120,7 +201,7 @@ app.post("/register", async (req, res) => {
       first_name, // $2
       last_name, // $3
       phone_number, // $4
-      profile_picture, // $5
+      `Avatars/${profile_picture}`, // $5
       email, // $6
       hashedPassword, // $7
       company, // $8
@@ -178,7 +259,7 @@ app.post("/login", async (req, res) => {
       { expiresIn: "1h" },
     );
 
-    res.json({ token });
+    res.json({ token, user });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Server error" });
@@ -206,13 +287,13 @@ const authenticateJWT = (req, res, next) => {
 
 app.get("/api/profile", authenticateJWT, async (req, res) => {
   try {
-    const userId = req.user.id;
+    console.log("User profile: ", req.user);
 
+    const userId = req.user.id;
     const query =
       "SELECT id, user_type, first_name,email, company, job_title, username, profile_picture, details, last_name, linkedin, additional_info, id, phone_number, programing_languages FROM users WHERE id = $1";
     const values = [userId];
     const result = await pool.query(query, values);
-
     const user = result.rows[0];
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -296,7 +377,7 @@ app.put(
         : user.programing_languages;
 
       const updatedProfilePicture = req.file
-        ? "/assets/uploads/" + req.file.filename
+        ? "/uploads/" + req.file.filename
         : user.profile_picture;
       const updatedAdditionalInformation =
         additionalInformation || user.additionalInformation;
@@ -352,6 +433,39 @@ app.put(
     }
   },
 );
+
+app.get("/api/appointments/:userId", async (req, res) => {
+  console.log(`GET /api/appointments/${req.params.user}`);
+  const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required." });
+  }
+
+  try {
+    const query = `
+      SELECT
+        a.id,
+        a.appointment_date,
+        a.status,
+        u1.first_name AS mentee_name,
+        u2.first_name AS mentor_name
+      FROM appointments a
+      JOIN users u1 ON a.mentee_id = u1.id
+      JOIN users u2 ON a.mentor_id = u2.id
+      WHERE a.mentee_id = $1 OR a.mentor_id = $1
+      ORDER BY a.appointment_date ASC;
+    `;
+    const values = [userId];
+
+    const result = await pool.query(query, values);
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    res.status(500).json({ message: "Failed to fetch appointments." });
+  }
+});
 
 // Start the server
 app.listen(port, () => {

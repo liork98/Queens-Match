@@ -1,27 +1,57 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Modal.css";
 import Button from "./Button.jsx";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import the styles for the calendar
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import { AuthContext } from "../contexts/AuthContext.js";
 
-const AppointmentModal = ({ isOpen, onClose, user, onScheduleAppointment }) => {
+const AppointmentModal = ({ isOpen, onClose, user, currentUserId }) => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { userData } = useContext(AuthContext);
 
   if (!isOpen || !user) {
     return null;
   }
 
-  const handleScheduleAppointment = () => {
-    if (selectedDate) {
-      // Instead of directly scheduling, inform the user about the email
-      alert(`An invitation email has been sent to ${user.first_name}. 
-      The mentor will need to accept the invitation before the appointment is confirmed.`);
-
-      // Call the callback function to handle any additional scheduling logic (like sending an email)
-      onScheduleAppointment(selectedDate);
-      onClose(); // Close the modal after scheduling
-    } else {
+  // Schedule an appointment and send data to the backend
+  const handleScheduleAppointment = async () => {
+    if (!selectedDate) {
       alert("Please select a date and time.");
+      return;
+    }
+
+    setLoading(true); // Start loading
+    console.log(userData);
+    try {
+      console.log({
+        menteeId: userData.id, // The logged-in user (mentee)
+        mentorId: currentUserId, // The mentor
+        appointmentDate: selectedDate.toISOString(), // Send date as ISO string
+      });
+
+      const response = await axios.post(
+        "http://localhost:5001/api/scheduleAppointment",
+        {
+          menteeId: userData.id, // The logged-in user (mentee)
+          mentorId: currentUserId, // The mentor
+          appointmentDate: selectedDate.toISOString(), // Send date as ISO string
+        },
+      );
+
+      if (response.status === 201) {
+        alert("Appointment scheduled successfully!");
+      } else {
+        alert("Failed to schedule appointment. Please try again.");
+      }
+
+      onClose(); // Close the appointment modal
+    } catch (error) {
+      console.error("Error scheduling appointment:", error);
+      alert("Failed to schedule appointment. Please try again.");
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -39,16 +69,18 @@ const AppointmentModal = ({ isOpen, onClose, user, onScheduleAppointment }) => {
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
             showTimeSelect
-            dateFormat="Pp" // This combines the date and time format
+            dateFormat="Pp" // Combines the date and time format
             timeFormat="HH:mm"
             timeIntervals={15} // Time selection in intervals of 15 minutes
             minDate={new Date()} // Prevent past dates
-            filterDate={(date) => date.getDay() !== 0 && date.getDay() !== 6} // Disable weekends (optional)
+            filterDate={(date) => date.getDay() !== 0 && date.getDay() !== 6} // Optional: Disable weekends
             showMonthYearDropdown
           />
         </div>
 
-        <Button onClick={handleScheduleAppointment}>Confirm Appointment</Button>
+        <Button onClick={handleScheduleAppointment} disabled={loading}>
+          {loading ? "Scheduling..." : "Confirm Appointment"}
+        </Button>
       </div>
     </div>
   );

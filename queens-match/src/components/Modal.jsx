@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import "./Modal.css";
 import Button from "./Button.jsx";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import the styles for the calendar
+import AppointmentModal from "./AppointmentModal.jsx";
 
-const Modal = ({ isOpen, onClose, user }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [isAppointmentModalOpen, setAppointmentModalOpen] = useState(false);
+const Modal = ({ isOpen, onClose, user, currentUserId }) => {
+  const [isAppointmentModalOpen, setAppointmentModalOpen] = useState(false); // For appointment modal
 
   if (!isOpen || !user) {
     return null;
@@ -15,38 +13,26 @@ const Modal = ({ isOpen, onClose, user }) => {
   const whatsappLink = `https://wa.me/${user.phone_number}`;
   const mailtoLink = `mailto:${user.email}`;
 
+  // Open the appointment modal
   const handleCreateAppointment = () => {
-    setAppointmentModalOpen(true); // Open the appointment scheduling modal
+    setAppointmentModalOpen(true);
   };
 
-  const handleScheduleAppointment = () => {
-    if (selectedDate) {
-      // Show the new confirmation message for the mentor's acceptance
-      alert(`An invitation email has been sent to ${user.first_name}. 
-      The mentor will need to accept the invitation before the appointment is confirmed.`);
-
-      // Here you would typically handle sending the email (e.g., using an API or backend logic)
-      // For now, we are just displaying a message
-
-      setAppointmentModalOpen(false); // Close the modal after appointment is scheduled
-    } else {
-      alert("Please select a date and time.");
-    }
-  };
-
+  // Close the appointment modal
   const handleCloseAppointmentModal = () => {
     setAppointmentModalOpen(false);
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
+      {/* Main Modal Content */}
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>
           X
         </button>
-        <h2>{`${user.first_name}'s profile`}</h2>
+        <h2>{`${user.first_name}'s Profile`}</h2>
         <img
-          src={`/assets/Avatars/${user.profile_picture}`}
+          src={`/assets/${user.profile_picture}`}
           alt={`${user.first_name}'s profile`}
           className="profile-picture-large"
         />
@@ -65,32 +51,12 @@ const Modal = ({ isOpen, onClose, user }) => {
       </div>
 
       {isAppointmentModalOpen && (
-        <div className="modal-overlay" onClick={handleCloseAppointmentModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={handleCloseAppointmentModal}>
-              X
-            </button>
-            <h2>Schedule Appointment with {user.first_name}</h2>
-
-            <div className="appointment-date-time">
-              <label>Select Appointment Date and Time</label>
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                showTimeSelect
-                dateFormat="Pp"
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                minDate={new Date()}
-                showMonthYearDropdown
-              />
-            </div>
-
-            <Button onClick={handleScheduleAppointment}>
-              Confirm Appointment
-            </Button>
-          </div>
-        </div>
+        <AppointmentModal
+          isOpen={isAppointmentModalOpen}
+          onClose={handleCloseAppointmentModal}
+          user={user}
+          currentUserId={user.id}
+        />
       )}
     </div>
   );

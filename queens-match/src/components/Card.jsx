@@ -10,7 +10,6 @@ const Card = ({
   details,
   onClick,
 }) => {
-  console.log("profilePicture: " + profilePicture);
   return (
     <div className="card-container" onClick={onClick}>
       {profilePicture ? (

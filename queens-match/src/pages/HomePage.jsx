@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Card from "../components/Card.jsx";
 import Modal from "../components/Modal.jsx";
 import "./HomePage.css";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate(); // Initialize navigate
   const [userProfiles, setUserProfiles] = useState([]);
   const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -14,14 +16,12 @@ const HomePage = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch("http://localhost:5001/api/users");
-        console.log("Response before json:", response);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log("Received user data:", data);
 
         setUserProfiles(data);
         setFilteredProfiles(data);
@@ -57,7 +57,15 @@ const HomePage = () => {
     setIsModalOpen(false);
     setSelectedUser(null);
   };
-  console.log("filtered users: " + JSON.stringify(filteredProfiles, null, 2));
+
+  // Check if the user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("User already logged in, navigating to /home...");
+      navigate("/"); // Redirect to home page if already logged in
+    }
+  }, [navigate]); // Runs only on component mount
 
   return (
     <div className="user-profile-page">
@@ -72,25 +80,26 @@ const HomePage = () => {
         />
       </div>
 
-      <div className="card-list">
+      <ul className="card-list">
         {filteredProfiles.length > 0 ? (
           filteredProfiles.map((user) => (
-            <Card
-              key={user.id}
-              profilePicture={`/assets/Avatars/${user.profile_picture}`}
-              firstName={user.first_name}
-              lastName={user.last_name}
-              email={user.email}
-              phoneNumber={user.phone_number}
-              details={user.details}
-              username={user.username}
-              onClick={() => handleCardClick(user)}
-            />
+            <li key={user.id}>
+              <Card
+                profilePicture={`assets/${user.profile_picture}`}
+                firstName={user.first_name}
+                lastName={user.last_name}
+                email={user.email}
+                phoneNumber={user.phone_number}
+                details={user.details}
+                username={user.username}
+                onClick={() => handleCardClick(user)}
+              />
+            </li>
           ))
         ) : (
           <p>No user profiles found.</p>
         )}
-      </div>
+      </ul>
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

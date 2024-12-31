@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./LoginPage.css";
 import Button from "../components/Button.jsx"; // Import Button component
 import FieldToFill from "../components/FieldToFill.jsx"; // Import FieldToFill component
@@ -12,7 +12,16 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate(); // Initialize navigate
-  const { login } = useContext(AuthContext);
+  const { login, updateUserData } = useContext(AuthContext);
+
+  // Check if the user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log("User already logged in, navigating to /home...");
+      navigate("/home"); // Redirect to home page if already logged in
+    }
+  }, [navigate]); // Runs only on component mount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,13 +35,13 @@ const LoginPage = () => {
           password,
         });
 
-        const { token } = response.data;
+        const { token, user } = response.data;
         login(response.data);
+        updateUserData(user);
         setSuccess(`Logged in as ${username}.`);
         localStorage.setItem("token", token);
         alert(`Logged in successfully!`);
 
-        // Redirect to home after a short delay
         setTimeout(() => {
           navigate("/home");
         }, 1500);
@@ -72,7 +81,6 @@ const LoginPage = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder=""
               required
             />
           </div>
@@ -82,7 +90,6 @@ const LoginPage = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder=""
               required
             />
           </div>

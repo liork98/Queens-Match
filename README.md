@@ -3,6 +3,7 @@
 
 ## Project Overview
 Queens Match is a community-driven mentorship application designed to connect mentors and mentees in the tech community. This project aims to create a platform where people can find and offer mentorship opportunities in programming and tech-related fields. The app allows users to search for mentors, apply to be a mentor, and schedule meetings.
+<img src="/screenshot1.png" alt="App Screenshot" />
 
 ## Features
 - **Mentor Profiles**: Displays a list of available mentors with their skills, name, email, phone number, and social media links.
@@ -12,7 +13,8 @@ Queens Match is a community-driven mentorship application designed to connect me
 
 ## Future Features
 - **Search & Filters**: Allows users to search for mentors by name, technology stack, and filter by programming languages or other criteria.
-- **Scheduling System**: Integration with a scheduling system to set up mentorship sessions.
+
+[//]: # (- **Scheduling System**: Integration with a scheduling system to set up mentorship sessions.)
 - **Feedback System**: A feedback mechanism where mentees can rate their sessions and mentors.
 - **Automated Thank You Messages**: Automatic thank you messages sent to mentors after a session.
 - **Admin Interface**: Provides community administrators with a dashboard to manage users and view mentor-mentee activities.)

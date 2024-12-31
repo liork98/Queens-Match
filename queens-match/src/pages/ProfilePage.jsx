@@ -62,7 +62,6 @@ const ProfilePage = () => {
           profilePicture: response.data.profile_picture || "",
           userType: response.data.user_type === 1 ? "Mentor" : "Mentee",
         });
-        console.log("USER DATA: ", response.data);
 
         setPreviewPicture(
           response.data.profile_picture ? response.data.profile_picture : "",
@@ -86,7 +85,6 @@ const ProfilePage = () => {
           value: lang.name,
         }));
         setLanguagesOptions(options);
-        console.log("Fetched languages:", languagesOptions);
       } catch (error) {
         console.error("Error fetching programming languages:", error);
       }
@@ -107,8 +105,6 @@ const ProfilePage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setProfilePicture(file);
-    console.log("File selected:", file); // Check if file is selected
-
     // Show a preview of the selected image
     if (file) {
       const reader = new FileReader();
@@ -180,11 +176,12 @@ const ProfilePage = () => {
         <form onSubmit={handleSubmit}>
           {previewPicture && (
             <img
-              src={`/assets/Avatars/${previewPicture}`}
+              src={`assets/${previewPicture}`}
               alt="Profile Preview"
               className="profile-picture-large"
             />
           )}
+          <p>{`${previewPicture}`}</p>
           <div className="form-group">
             <label>Profile Picture:</label>
             <input

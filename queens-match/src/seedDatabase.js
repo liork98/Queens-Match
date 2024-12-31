@@ -12,7 +12,7 @@ const users = [
     username: "emily_j",
     password: "password1",
     linkedin: "https://linkedin.com/in/emilyjohnson",
-    profile_picture: "avatar1.jpg",
+    profile_picture: "Avatars/avatar1.jpg", // Updated
     details: "CS student passionate about software development and AI.",
     additional_info:
       "Loves solving problems and is currently working on a machine learning project.",
@@ -30,7 +30,7 @@ const users = [
     username: "sophia_w",
     password: "password2",
     linkedin: "https://linkedin.com/in/sophiawilliams",
-    profile_picture: "avatar2.jpg",
+    profile_picture: "Avatars/avatar2.jpg", // Updated
     details: "Frontend developer with a love for user experience.",
     additional_info:
       "Enjoys creating visually appealing and user-friendly web applications.",
@@ -48,7 +48,7 @@ const users = [
     username: "isabella_b",
     password: "password3",
     linkedin: "https://linkedin.com/in/isabellabrown",
-    profile_picture: "avatar3.jpg",
+    profile_picture: "Avatars/avatar3.jpg", // Updated
     details: "Aspiring data scientist with a background in statistics.",
     additional_info:
       "Passionate about uncovering insights from data and loves working with Python.",
@@ -66,7 +66,7 @@ const users = [
     username: "mia_g",
     password: "password4",
     linkedin: "https://linkedin.com/in/miagarcia",
-    profile_picture: "avatar4.jpg",
+    profile_picture: "Avatars/avatar4.jpg", // Updated
     details: "CS student focusing on cloud computing and services.",
     additional_info:
       "Keen on learning about cloud architectures and DevOps practices.",
@@ -84,7 +84,7 @@ const users = [
     username: "ava_m",
     password: "password5",
     linkedin: "https://linkedin.com/in/avamartinez",
-    profile_picture: "avatar5.jpg",
+    profile_picture: "Avatars/avatar5.jpg", // Updated
     details: "Aspiring mobile developer passionate about app design.",
     additional_info:
       "Currently developing a personal finance tracking app as a side project.",
@@ -102,7 +102,7 @@ const users = [
     username: "olivia_d",
     password: "password6",
     linkedin: "https://linkedin.com/in/oliviadavis",
-    profile_picture: "avatar6.jpg",
+    profile_picture: "Avatars/avatar6.jpg", // Updated
     details: "Software engineering student eager to learn and grow.",
     additional_info:
       "Loves coding and participates in hackathons to enhance her skills.",
@@ -120,7 +120,7 @@ const users = [
     username: "chloe_r",
     password: "password7",
     linkedin: "https://linkedin.com/in/chloerodriguez",
-    profile_picture: "avatar7.jpg",
+    profile_picture: "Avatars/avatar7.jpg", // Updated
     details: "UI/UX student passionate about creating engaging designs.",
     additional_info:
       "Aims to improve user experiences through research and design iterations.",
@@ -138,7 +138,7 @@ const users = [
     username: "charlotte_w",
     password: "password8",
     linkedin: "https://linkedin.com/in/charlottewilson",
-    profile_picture: "avatar8.jpg",
+    profile_picture: "Avatars/avatar8.jpg", // Updated
     details: "CS student interested in cybersecurity and ethical hacking.",
     additional_info:
       "Active member of her university’s cybersecurity club and loves challenges.",
@@ -156,7 +156,7 @@ const users = [
     username: "jessica_l",
     password: "securePassword1",
     linkedin: "https://linkedin.com/in/jessicalee",
-    profile_picture: "avatar1.jpg",
+    profile_picture: "Avatars/avatar1.jpg", // Updated
     details: "Senior developer specializing in AI and machine learning.",
     additional_info:
       "Mentors junior developers and is passionate about AI ethics.",
@@ -174,7 +174,7 @@ const users = [
     username: "natalie_h",
     password: "securePassword2",
     linkedin: "https://linkedin.com/in/nataliehernandez",
-    profile_picture: "avatar2.jpg",
+    profile_picture: "Avatars/avatar2.jpg", // Updated
     details: "Cybersecurity expert with experience in penetration testing.",
     additional_info:
       "Enthusiastic about sharing knowledge and speaking at tech conferences.",
